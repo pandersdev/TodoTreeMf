@@ -50,7 +50,7 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
             text.setOnLongClickListener(this);
         }
 
-        int pad_size = (int) (size*0.4f);
+        int pad_size = (int) (size*0.2f);
         text.setPadding(20, pad_size, 0, pad_size);
         text.setBackground(null);
         text.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * 0.50f);
@@ -60,10 +60,15 @@ public class NodeView implements TextWatcher, View.OnClickListener, View.OnDragL
         row.addView(text, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
 
         int child_count = node.child_count();
+        int child_todo = node.child_count_todo();
+        //WRAP display also nodes done
+        int child_done = child_count - child_todo;
+
         if(child_count > 0) {
             this.count = new TextView(ctx);
             count.setPadding(0, 0, 10, 0);
-            count.setText(Integer.toString(child_count));
+            //WRAP add done children to display
+            count.setText(Integer.toString(child_done)+"/"+Integer.toString(child_count));
             count.setTextSize(TypedValue.COMPLEX_UNIT_PX, size*0.5f);
             count.setOnClickListener(this);
             count.setHeight(size);

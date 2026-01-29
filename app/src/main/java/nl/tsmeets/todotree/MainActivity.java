@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +67,10 @@ public class MainActivity extends Activity {
                 })
                 .setNegativeButton(R.string.dialog_cancel, null)
                 .create();
+
+        //WRAP: insert dialog on top, not hidden by keyboard
+        WindowManager.LayoutParams winManLayParams=d.getWindow().getAttributes();
+        winManLayParams.gravity = Gravity.TOP;
 
         // prevent pressing outside the dialog from dismissing
         // only the cancel button should do this
